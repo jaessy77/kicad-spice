@@ -1,0 +1,74 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# pspice_0
+#
+DEF pspice_0 #GND 0 0 Y Y 1 F P
+F0 "#GND" 0 -100 50 H I C CNN
+F1 "pspice_0" 0 -70 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 4 0 1 0 -50 0 0 -50 50 0 -50 0 N
+X 0 1 0 0 0 R 40 40 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# pspice_R
+#
+DEF pspice_R R 0 0 N Y 1 F N
+F0 "R" 80 0 50 V V C CNN
+F1 "pspice_R" 0 0 50 V V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+S -40 150 40 -150 0 1 0 N
+X ~ 1 0 250 100 D 50 50 1 1 P
+X ~ 2 0 -250 100 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# pspice_VSOURCE
+#
+DEF pspice_VSOURCE V 0 40 Y Y 1 F N
+F0 "V" -250 300 50 H V C CNN
+F1 "pspice_VSOURCE" 0 0 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+C 0 0 200 0 1 0 N
+T 0 -320 -10 50 0 0 1 V Normal 0 C C
+P 2 0 1 0 -250 -250 -250 150 F
+P 3 0 1 0 -300 150 -250 250 -200 150 F
+X E1 1 0 300 100 D 50 50 1 1 I
+X E2 2 0 -300 100 U 50 50 1 1 I
+ENDDRAW
+ENDDEF
+#
+# xspice_DFF_RN
+#
+DEF xspice_DFF_RN U 0 40 Y Y 1 F N
+F0 "U" -400 350 50 H V C CNN
+F1 "xspice_DFF_RN" -400 -350 50 H V C CNN
+F2 "" -100 0 50 H I C CNN
+F3 "" -100 0 50 H I C CNN
+F4 "X" 250 -350 50 H I C CNN "Spice_Primitive"
+F5 "DFF_RN" 400 -350 50 H V C CNN "Spice_Model"
+F6 "Y" 550 -350 50 H I C CNN "Spice_Netlist_Enabled"
+F7 "C:\\KiCad\\kicad-spice\\xspice\\xspice.cir" 950 -450 50 H V C CNN "Spice_Lib_File"
+$FPLIST
+ DIP*W7.62mm*
+$ENDFPLIST
+DRAW
+S -300 200 300 -200 1 1 10 f
+X ~R 1 -100 -300 100 U 50 50 1 0 I
+X D 2 -400 100 100 R 50 50 1 0 I
+X C 3 -400 -100 100 R 50 50 1 0 I C
+X Q 4 400 100 100 L 50 50 1 0 O
+X ~Q 5 400 -100 100 L 50 50 1 0 O
+X VCC 6 100 300 100 D 50 50 1 1 P
+X GND 7 100 -300 100 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+#End Library

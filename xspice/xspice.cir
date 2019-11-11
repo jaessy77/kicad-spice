@@ -1,0 +1,175 @@
+******************************************
+* Subcircuit for a GENERIC D_DFF         *
+* with active high Set and Reset         *
+* Subcircuit-Name : DFF_S_R              *
+* REV 0.1                                *
+* Author:  Dipl.-Ing.(FH) Marco Jassmann *
+* Company: MSJ-Solutions                 *
+******************************************
+*               R (high active Reset, Input-Pin)
+*               |    D (Data Input-Pin)
+*               |    |    C (Clock, Input-Pin)
+*               |    |    |    S (high active Set, Input-Pin)
+*               |    |    |    |    Q (Resitered Data, Output-Pin)
+*               |    |    |    |    |     Qn (Registered Data inverted, Output-Pin)
+*               |    |    |    |    |     |     VCC (Positive Power Supply)
+*               |    |    |    |    |     |     |   GND (Ground Power Supply)
+*               |    |    |    |    |     |     |   |
+.SUBCKT DFF_S_R anaR anaD anaC anaS anaQ  anaQn VCC GND
+
+* A-to-D bridge
+Aana2dig1 [anaD anaC anaS anaR] [digD digC digS digR] todig
+.MODEL todig adc_bridge(in_high=0.7 in_low=0.3 rise_delay=100n fall_delay=100n)
+
+*D-FlipFlop Pin-Order:   data clk  set  reset out  nout
+*entspricht hier im BSP  digD digC digS digR  digQ digQn
+
+Aff1 digD digC digS digR digQ digQn flop1
+.MODEL flop1 d_dff(clk_delay = 1e-9 set_delay = 0
++ reset_delay = 0 ic = 0 rise_delay = 1e-9
++ fall_delay = 1e-9)
+
+* D-to-A bridges
+Adig2ana1 [digQ digQn] [anaQ_int anaQn_int] toana
+.MODEL toana dac_bridge(out_high=1.0 out_low=0.0)
+
+* Match the generatd output signals to applied VCC
+Egain1 anaQ anaQ_int VALUE = { V(anaQ_int) * ( V(VCC,GND) - V(anaQ_int) ) }
+Egain2 anaQn anaQn_int VALUE = { (V(anaQn_int)) * ( V(VCC,GND) - V(anaQn_int) ) }
+
+.ENDS DFF_S_R
+
+
+******************************************
+* Subcircuit for a GENERIC D_DFF         *
+* with active high Reset only            *
+* Subcircuit-Name : DFF_R                *
+* REV 0.1                                *
+* Author:  Dipl.-Ing.(FH) Marco Jassmann *
+* Company: MSJ-Solutions                 *
+******************************************
+*             R (high active Reset, Input-Pin)
+*             |    D (Data Input-Pin)
+*             |    |    C (Clock, Input-Pin)
+*             |    |    |    Q (Resitered Data, Output-Pin)
+*             |    |    |    |    Qn (Registered Data inverted, Output-Pin)
+*             |    |    |    |    |     VCC (Positive Power Supply)
+*             |    |    |    |    |     |   GND (Ground Power Supply)
+*             |    |    |    |    |     |   |
+.SUBCKT DFF_R anaR anaD anaC anaQ anaQn VCC GND
+
+* A-to-D bridge
+Aana2dig1 [anaD anaC anaR] [digD digC digR] todig
+.MODEL todig adc_bridge(in_high=0.7 in_low=0.3 rise_delay=100n fall_delay=100n)
+
+*D-FlipFlop Pin-Order:   data clk  set  reset out  nout
+*entspricht hier im BSP  digD digC digS digR  digQ digQn
+.param digS = 0
+Aff1 digD digC digS digR digQ digQn flop1
+.MODEL flop1 d_dff(clk_delay = 1e-9 set_delay = 0
++ reset_delay = 0 ic = 0 rise_delay = 1e-9
++ fall_delay = 1e-9)
+
+* D-to-A bridges
+Adig2ana1 [digQ digQn] [anaQ_int anaQn_int] toana
+.MODEL toana dac_bridge(out_high=1.0 out_low=0.0)
+
+* Match the generatd output signals to applied VCC
+Egain1 anaQ anaQ_int VALUE = { V(anaQ_int) * ( V(VCC,GND) - V(anaQ_int) ) }
+Egain2 anaQn anaQn_int VALUE = { (V(anaQn_int)) * ( V(VCC,GND) - V(anaQn_int) ) }
+
+.ENDS DFF_R
+
+
+******************************************
+* Subcircuit for a GENERIC D_DFF         *
+* with active low Set and Reset          *
+* Subcircuit-Name : DFF_SN_RN            *
+* REV 0.1                                *
+* Author:  Dipl.-Ing.(FH) Marco Jassmann *
+* Company: MSJ-Solutions                 *
+******************************************
+*                 nR (low active Reset, Input-Pin)
+*                 |     D (Data Input-Pin)
+*                 |     |    C (Clock, Input-Pin)
+*                 |     |    |    nS (low active Set, Input-Pin)
+*                 |     |    |    |     Q (Resitered Data, Output-Pin)
+*                 |     |    |    |     |    Qn (Registered Data inverted, Output-Pin)
+*                 |     |    |    |     |    |     VCC (Positive Power Supply)
+*                 |     |    |    |     |    |     |   GND (Ground Power Supply)
+*                 |     |    |    |     |    |     |   |
+.SUBCKT DFF_SN_RN anaRn anaD anaC anaSn anaQ anaQn VCC GND
+
+* A-to-D bridge
+Aana2dig1 [anaD anaC anaSn anaRn] [digD digC digSn digRn] todig
+.MODEL todig adc_bridge(in_high=0.7 in_low=0.3 rise_delay=100n fall_delay=100n)
+
+* Inverter
+AinvSn digSn digS diginv
+AinvRn digRn digR diginv
+.MODEL diginv d_inverter(rise_delay = 0.5e-9 fall_delay = 0.3e-9
++ input_load = 0.5e-12)
+
+*D-FlipFlop Pin-Order:   data clk  set  reset out  nout
+*entspricht hier im BSP  digD digC digS digR  digQ digQn
+
+Aff1 digD digC digS digR digQ digQn flop1
+.MODEL flop1 d_dff(clk_delay = 1e-9 set_delay = 0
++ reset_delay = 0 ic = 0 rise_delay = 1e-9
++ fall_delay = 1e-9)
+
+* D-to-A bridges
+Adig2ana1 [digQ digQn] [anaQ_int anaQn_int] toana
+.MODEL toana dac_bridge(out_high=1.0 out_low=0.0)
+
+* Match the generatd output signals to applied VCC
+Egain1 anaQ anaQ_int VALUE = { V(anaQ_int) * ( V(VCC,GND) - V(anaQ_int) ) }
+Egain2 anaQn anaQn_int VALUE = { (V(anaQn_int)) * ( V(VCC,GND) - V(anaQn_int) ) }
+
+.ENDS DFF_SN_RN
+
+
+******************************************
+* Subcircuit for a GENERIC D_DFF         *
+* with active low Reset only             *
+* Subcircuit-Name : DFF_SN_RN            *
+* REV 0.1                                *
+* Author:  Dipl.-Ing.(FH) Marco Jassmann *
+* Company: MSJ-Solutions                 *
+******************************************
+*                 nR (low active Reset, Input-Pin)
+*                 |     D (Data Input-Pin)
+*                 |     |    C (Clock, Input-Pin)
+*                 |     |    |    Q (Resitered Data, Output-Pin)
+*                 |     |    |    |    Qn (Registered Data inverted, Output-Pin)
+*                 |     |    |    |    |     VCC (Positive Power Supply)
+*                 |     |    |    |    |     |   GND (Ground Power Supply)
+*                 |     |    |    |    |     |   |
+.SUBCKT DFF_RN anaRn anaD anaC anaQ anaQn VCC GND
+
+* A-to-D bridge
+Aana2dig1 [anaD anaC anaRn] [digD digC digRn] todig
+.MODEL todig adc_bridge(in_high=0.7 in_low=0.3 rise_delay=100n fall_delay=100n)
+
+* Inverter
+AinvRn digRn digR diginv
+.MODEL diginv d_inverter(rise_delay = 0.5e-9 fall_delay = 0.3e-9
++ input_load = 0.5e-12)
+
+*D-FlipFlop Pin-Order:   data clk  set  reset out  nout
+*entspricht hier im BSP  digD digC digS digR  digQ digQn
+.param digS = 0
+Aff1 digD digC digS digR digQ digQn flop1
+.MODEL flop1 d_dff(clk_delay = 1e-9 set_delay = 0
++ reset_delay = 0 ic = 0 rise_delay = 1e-9
++ fall_delay = 1e-9)
+
+* D-to-A bridges
+Adig2ana1 [digQ digQn] [anaQ_int anaQn_int] toana
+.MODEL toana dac_bridge(out_high=1.0 out_low=0.0)
+
+* Match the generatd output signals to applied VCC
+Egain1 anaQ anaQ_int VALUE = { V(anaQ_int) * ( V(VCC,GND) - V(anaQ_int) ) }
+Egain2 anaQn anaQn_int VALUE = { (V(anaQn_int)) * ( V(VCC,GND) - V(anaQn_int) ) }
+
+.ENDS DFF_RN

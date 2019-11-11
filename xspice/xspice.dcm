@@ -1,0 +1,23 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP DFF_R
+D D Flip-flop, high-active Reset only
+K TTL DFF
+$ENDCMP
+#
+$CMP DFF_RN
+D D Flip-flop, low-active Reset only
+K TTL DFF
+$ENDCMP
+#
+$CMP DFF_SN_RN
+D D Flip-flop, low-actvie Set & Reset
+K TTL DFF
+$ENDCMP
+#
+$CMP DFF_S_R
+D D Flip-flop, high-active Set & Reset
+K TTL DFF
+$ENDCMP
+#
+#End Doc Library

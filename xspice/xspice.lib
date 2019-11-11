@@ -1,0 +1,110 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# DFF_R
+#
+DEF DFF_R U 0 40 Y Y 1 F N
+F0 "U" -400 350 50 H V C CNN
+F1 "DFF_R" -400 -350 50 H V C CNN
+F2 "" -100 0 50 H I C CNN
+F3 "" -100 0 50 H I C CNN
+F4 "X" 250 -350 50 H I C CNN "Spice_Primitive"
+F5 "DFF_R" 400 -350 50 H V C CNN "Spice_Model"
+F6 "Y" 550 -350 50 H I C CNN "Spice_Netlist_Enabled"
+F7 "C:\\KiCad\\kicad-spice\\xspice\\xspice.cir" 950 -450 50 H V C CNN "Spice_Lib_File"
+$FPLIST
+ DIP*W7.62mm*
+$ENDFPLIST
+DRAW
+S -300 200 300 -200 1 1 10 f
+X R 1 -100 -300 100 U 50 50 1 0 I
+X D 2 -400 100 100 R 50 50 1 0 I
+X C 3 -400 -100 100 R 50 50 1 0 I C
+X Q 4 400 100 100 L 50 50 1 0 O
+X ~Q 5 400 -100 100 L 50 50 1 0 O
+X VCC 6 100 300 100 D 50 50 1 1 P
+X GND 7 100 -300 100 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# DFF_RN
+#
+DEF DFF_RN U 0 40 Y Y 1 F N
+F0 "U" -400 350 50 H V C CNN
+F1 "DFF_RN" -400 -350 50 H V C CNN
+F2 "" -100 0 50 H I C CNN
+F3 "" -100 0 50 H I C CNN
+F4 "X" 250 -350 50 H I C CNN "Spice_Primitive"
+F5 "DFF_RN" 400 -350 50 H V C CNN "Spice_Model"
+F6 "Y" 550 -350 50 H I C CNN "Spice_Netlist_Enabled"
+F7 "C:\\KiCad\\kicad-spice\\xspice\\xspice.cir" 950 -450 50 H V C CNN "Spice_Lib_File"
+$FPLIST
+ DIP*W7.62mm*
+$ENDFPLIST
+DRAW
+S -300 200 300 -200 1 1 10 f
+X ~R 1 -100 -300 100 U 50 50 1 0 I
+X D 2 -400 100 100 R 50 50 1 0 I
+X C 3 -400 -100 100 R 50 50 1 0 I C
+X Q 4 400 100 100 L 50 50 1 0 O
+X ~Q 5 400 -100 100 L 50 50 1 0 O
+X VCC 6 100 300 100 D 50 50 1 1 P
+X GND 7 100 -300 100 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# DFF_SN_RN
+#
+DEF DFF_SN_RN U 0 40 Y Y 1 F N
+F0 "U" -400 350 50 H V C CNN
+F1 "DFF_SN_RN" -400 -350 50 H V C CNN
+F2 "" -100 0 50 H I C CNN
+F3 "" -100 0 50 H I C CNN
+F4 "X" 250 -350 50 H I C CNN "Spice_Primitive"
+F5 "DFF_SN_RN" 400 -350 50 H V C CNN "Spice_Model"
+F6 "Y" 550 -350 50 H I C CNN "Spice_Netlist_Enabled"
+F7 "C:\\KiCad\\kicad-spice\\xspice\\xspice.cir" 950 -450 50 H V C CNN "Spice_Lib_File"
+$FPLIST
+ DIP*W7.62mm*
+$ENDFPLIST
+DRAW
+S -300 200 300 -200 1 1 10 f
+X ~R 1 -100 -300 100 U 50 50 1 0 I
+X D 2 -400 100 100 R 50 50 1 0 I
+X C 3 -400 -100 100 R 50 50 1 0 I C
+X ~S 4 -100 300 100 D 50 50 1 0 I
+X Q 5 400 100 100 L 50 50 1 0 O
+X ~Q 6 400 -100 100 L 50 50 1 0 O
+X VCC 7 100 300 100 D 50 50 1 1 P
+X GND 8 100 -300 100 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# DFF_S_R
+#
+DEF DFF_S_R U 0 40 Y Y 1 F N
+F0 "U" -400 350 50 H V C CNN
+F1 "DFF_S_R" -400 -350 50 H V C CNN
+F2 "" -100 0 50 H I C CNN
+F3 "" -100 0 50 H I C CNN
+F4 "X" 250 -350 50 H I C CNN "Spice_Primitive"
+F5 "DFF_S_R" 400 -350 50 H V C CNN "Spice_Model"
+F6 "Y" 550 -350 50 H I C CNN "Spice_Netlist_Enabled"
+F7 "C:\\KiCad\\kicad-spice\\xspice\\xspice.cir" 950 -450 50 H V C CNN "Spice_Lib_File"
+$FPLIST
+ DIP*W7.62mm*
+$ENDFPLIST
+DRAW
+S -300 200 300 -200 1 1 10 f
+X R 1 -100 -300 100 U 50 50 1 0 I
+X D 2 -400 100 100 R 50 50 1 0 I
+X C 3 -400 -100 100 R 50 50 1 0 I C
+X S 4 -100 300 100 D 50 50 1 0 I
+X Q 5 400 100 100 L 50 50 1 0 O
+X ~Q 6 400 -100 100 L 50 50 1 0 O
+X VCC 7 100 300 100 D 50 50 1 1 P
+X GND 8 100 -300 100 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+#End Library
