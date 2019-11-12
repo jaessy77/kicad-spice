@@ -1,5 +1,10 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP DFF_NC7SZ175
+D D Flip-flop, low-active Reset only
+K TTL DFF
+$ENDCMP
+#
 $CMP DFF_R
 D D Flip-flop, high-active Reset only
 K TTL DFF
@@ -17,6 +22,11 @@ $ENDCMP
 #
 $CMP DFF_S_R
 D D Flip-flop, high-active Set & Reset
+K TTL DFF
+$ENDCMP
+#
+$CMP NC7SZ175
+D D Flip-flop, low-active Reset only
 K TTL DFF
 $ENDCMP
 #
