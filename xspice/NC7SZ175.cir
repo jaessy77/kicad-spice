@@ -1,0 +1,49 @@
+*******************************************************************
+* Subcircuit for a GENERIC D_DFF                                  *
+* with active low Clear input                                     *
+* Subcircuit-Name : NC7SZ175                                      *
+* Datasheet: https://www.onsemi.com/pub/Collateral/NC7SZ175-D.PDF *
+* REV 0.1                                                         *
+* Author:  Dipl.-Ing.(FH) Marco Jassmann,                         *
+*		   Johannes Bräuning			                          *
+* Company: MSJ-Solutions                                          *
+*******************************************************************
+* Attention: The parameters used for the d_dff model are not from the data sheet, so the dynamic behaviour
+*			 may not be the same as the real NC7SZ175. The purpose of the model is only to simulate the right
+*			 digital behaviour in an analog simulation according to an existing electical D-FlipFlop.
+*			
+*                  C (Clock, Input-Pin)
+*                  |     GND (Ground Power Supply)
+*                  |     |    D (Data Input-Pin) 
+*                  |     |    |    Q (Resitered Data, Output-Pin)
+*                  |     |    |    |   VCC (Positive Power Supply)
+*                  |     |    |    |   |   Cn (low active Reset, Input-Pin)
+*                  |     |    |    |   |   |
+.SUBCKT NC7SZ175 anaCp  GND anaD  anaQ VCC anaCn
+
+* A-to-D bridge
+Aana2dig1 [anaD anaCp anaCn] [digD digCp digCn] todig
+.MODEL todig adc_bridge(in_high=0.7 in_low=0.5 rise_delay=100n fall_delay=100n)
+
+* Inverter
+AinvRn digCn digC diginv
+.MODEL diginv d_inverter(rise_delay = 0.5e-9 fall_delay = 0.3e-9
++ input_load = 0.5e-12)
+
+*D-FlipFlop Pin-Order:			 data  clk  set  reset out  nout
+*corresponding NC7SZ175 inputs:  digD digCp digS digC digQ digQn
+
+
+Aff1 digD digCp NULL digC digQ digQn flop1
+.MODEL flop1 d_dff(clk_delay = 1e-9 set_delay = 0
++ reset_delay = 0 ic = 0 rise_delay = 1e-9
++ fall_delay = 1e-9)
+
+* D-to-A bridges
+Adig2ana1 [digQ] [anaQ_int] toana
+.MODEL toana dac_bridge(out_high=1.0 out_low=0.0)
+
+* Match the generatd output signals to applied VCC
+Egain1 anaQ anaQ_int VALUE = { V(anaQ_int) * ( V(VCC,GND) - V(anaQ_int) ) }
+
+.ENDS NC7SZ175
