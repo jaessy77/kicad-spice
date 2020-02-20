@@ -19,5 +19,8 @@ Cheers
 Marco Jassmann
 CEO MSJ Solutions
 
+Please do not forget to make a entry in "Configure Paths" in Preferences menu:
+KICAD_SPICE_DIR  pointts f.e. to C:\KiCad\kicad-spice
+
 PS: I do this for free .. if anybody wants to contribute or has idead for optimizations .. you are welcome ;-)
 

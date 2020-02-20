@@ -1,0 +1,37 @@
+********************************
+* Copyright:                   *
+* Vishay Intertechnology, Inc. *
+********************************
+*Oct 06, 2014
+*ECN S14-1993, Rev. C
+*File Name: TP0610K_PS.txt and TP0610K_PS.lib
+*This document is intended as a SPICE modeling guideline and does not
+*constitute a commercial product datasheet. Designers should refer to the
+*appropriate datasheet of the same number for guaranteed specification
+*limits.
+*               D G S
+.SUBCKT TP0610K 4 1 2
+M1  3 1 2 2 PMOS W=26124u L=0.50u   
+M2  2 1 2 4 NMOS W=26124u L=1.20u    
+R1  4 3     RTEMP 160E-2
+CGS 1 2     12E-12
+DBD 4 2     DBD
+**************************************************************** 
+.MODEL  PMOS        PMOS ( LEVEL  = 3            TOX    = 7E-8
++ RS     = 100E-2          RD     = 0            NSUB   = 8.2E16   
++ KP     = 9E-6            UO     = 400             
++ VMAX   = 0               XJ     = 5E-7         KAPPA  = 1E-1
++ ETA    = 1E-4            TPG    = -1  
++ IS     = 0               LD     = 0                
++ CGSO   = 0               CGDO   = 0            CGBO   = 0 
++ NFS    = 0.8E12          DELTA  = 0.1)
+**************************************************************** 
+.MODEL  NMOS        NMOS ( LEVEL  = 3            TOX    = 7E-8
++NSUB    = 4E16            NFS    = 1E12 )   
+**************************************************************** 
+.MODEL DBD D (CJO=11E-12 VJ=0.38 M=0.20
++RS=1 FC=0.5 IS=1E-12 TT=5E-8 N=1 BV=60.5)
+**************************************************************** 
+.MODEL RTEMP RES (TC1=7E-3 TC2=5.5E-6)
+**************************************************************** 
+.ENDS

@@ -6,18 +6,13 @@
 *
 *High-speed diodes
 *
-*
 *VRRM = 100V
 *IFRM = 450 mA 
 *trr  = 4ns
 *
 *Package: SOD 27
-*
 *Package Pin 1 : Cathode
 *Package Pin 2 : Anode
-*
-*
-*
 *
 *Simulator: PSPICE
 *
@@ -32,7 +27,7 @@
 * 
 * Changed by GMVT, mja
 ******************************************
-.SUBCKT 1N4148 2 1 
+.SUBCKT 1N4148 2 1
 *
 * The resistor R1 does not reflect 
 * a physical device. Instead it

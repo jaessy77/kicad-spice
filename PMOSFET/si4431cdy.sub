@@ -1,0 +1,60 @@
+*Nov 12, 2012
+*ECN S12-2714, Rev. B
+*File Name: Si4431CDY_PS.txt, Si4431CDY_PS.lib
+*This document is intended as a SPICE modeling guideline and does not
+*constitute a commercial product datasheet. Designers should refer to the
+*appropriate datasheet of the same number for guaranteed specification
+*limits.
+*
+******************************************
+* CAUTION:
+* Due KiCAD definition of schematic symbol,
+* the physical pins need to be flipped in
+* simulation to fit the SPICE logic:
+* Anode first, then Cathode ...
+* 
+* Original: .SUBCKT Si4431CDY D G S 
+* 
+* Changed by GMVT, mja
+******************************************
+*
+.SUBCKT Si4431CDY S S S G D D D D
+M1  3  GX S S PMOS W=2564000u L=0.25u 
+M2  S  GX S D NMOS W=2564000u L=0.44u 
+RG  G  GX     2
+R1  D  3      RTEMP 10.5E-3
+CGS G  S      410E-12
+DBD D  S      DBD
+************************************************************ 
+.MODEL  PMOS         PMOS (LEVEL  = 3        TOX    = 5E-8
++ RS     = 11E-3           RD     = 0        NSUB   = 1E17   
++ KP     = 3E-6            UO     = 400             
++ VMAX   = 0               XJ     = 5E-7     KAPPA  = 2E-2
++ ETA    = 1E-4            TPG    = -1  
++ IS     = 0               LD     = 0                 
++ CGSO   = 0               CGDO   = 0        CGBO   = 0 
++ NFS    = 0.8E12          DELTA  = 0.1
+************************************************************* 
+.MODEL  NMOS         NMOS (LEVEL  = 3        TOX    = 5E-8
++NSUB    = 3E16            IS     = 0        TPG    = -1)   
+************************************************************* 
+
+******************************************
+* Original: .SUBCKT Si4431CDY D G S 
+* .MODEL DBD D (CJO=160E-12 VJ=0.38 M=0.38
+* +FC=0.5 TT=1.56e-08 T_MEASURED=25 BV=30.5
+* +RS=1.237e-02 N=1.12 IS=9.750e-12 IKF=1000
+* +EG=1.22 XTI=4.093e-02 TRS1=1.476e-03)
+*
+* Changed by GMVT, mja
+******************************************
+
+.MODEL DBD D (CJO=160E-12 VJ=0.38 M=0.38
++FC=0.5 TT=1.56e-08 TEMP=25 BV=30.5
++RS=1.237e-02 N=1.12 IS=9.750e-12 IKF=1000
++EG=1.22 XTI=4.093e-02 TRS1=1.476e-03)
+
+************************************************************* 
+.MODEL RTEMP RES (TC1=8E-3 TC2=5.5E-6)
+************************************************************* 
+.ENDS

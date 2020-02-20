@@ -1,0 +1,65 @@
+*Apr 05, 2010
+*Doc. ID: 66527, ECN S10-0751, Rev. A
+*File Name: Si3932DV_PS.txt and Si3932DV_PS.lib
+*This document is intended as a SPICE modeling guideline and does not
+*constitute a commercial product data sheet. Designers should refer to the
+*appropriate data sheet of the same number for guaranteed specification
+*limits.
+*
+******************************************
+* CAUTION:
+* Due KiCAD definition of schematic symbol,
+* the physical pins need to be flipped in
+* simulation to fit the SPICE logic:
+* Anode first, then Cathode ...
+* 
+* Original: .SUBCKT Si3932DV D G S 
+* 
+* Changed by GMVT, mja
+******************************************
+*
+.SUBCKT Si3932DV G1 S2 G2 D2 S1 D1
+XSi3932DV_1 D1 G1 S1 Si3932DV_DEFINITION
+XSi3932DV_2 D2 G2 S2 Si3932DV_DEFINITION
+
+.SUBCKT Si3932DV_DEFINITION D G S 
+M1 3 GX S S NMOS W= 392657u L= 0.25u 
+M2 S GX S D PMOS W= 392657u L= 2.320e-07 
+R1 D 3 2.387e-02 TC=7.739e-03 1.195e-05 
+CGS GX S 1.717e-10 
+CGD GX D 8.676e-12 
+RG G GY 5
+RTCV 100 S 1e6 TC=-3.156e-05 1.330e-06 
+ETCV GX GY 100 200 1 
+ITCV S 100 1u 
+VTCV 200 S 1 
+DBD S D DBD 
+**************************************************************** 
+.MODEL NMOS NMOS ( LEVEL = 3 TOX = 5e-8 
++ RS = 1.927e-02 KP = 1.875e-05 NSUB = 9.077e+16 
++ KAPPA = 1.053e-01 ETA = 2.232e-04 NFS = 3.104e+11 
++ LD = 0 IS = 0 TPG = 1) 
+*************************************************************** 
+.MODEL PMOS PMOS ( LEVEL = 3 TOX = 5e-8 
++NSUB = 9.602e+15 IS = 0 TPG = -1 ) 
+**************************************************************** 
+
+******************************************
+* Original:
+* .MODEL DBD D ( 
+* +FC = 0.1 TT = 9.542e-09 T_MEASURED = 25 BV = 32 
+* +RS = 1.583e-02 N = 1.355e+00 IS = 4.218e-10 
+* +EG = 1.179e+00 XTI = 2.001e-01 TRS1 = 2.453e-03 
+* +CJO = 1.277e-10 VJ = 4.652e-01 M = 3.580e-01 ) 
+*
+* Changed by GMVT, mja
+******************************************
+
+.MODEL DBD D ( 
++FC = 0.1 TT = 9.542e-09 TEMP = 25 BV = 32 
++RS = 1.583e-02 N = 1.355e+00 IS = 4.218e-10 
++EG = 1.179e+00 XTI = 2.001e-01 TRS1 = 2.453e-03 
++CJO = 1.277e-10 VJ = 4.652e-01 M = 3.580e-01 ) 
+.ENDS 
+
+.ENDS
